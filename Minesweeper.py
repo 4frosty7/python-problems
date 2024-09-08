@@ -41,35 +41,35 @@ Rectangular matrix of the same size as matrix each cell of which contains an int
 """
 
 def solution(matrix):
-    output = []
+    #expanding the matrix
+    tempMatrix = [[0]*(len(matrix[0])+2) for i in range (len(matrix)+2)]
+    expandedMatrix = [[0]*(len(matrix[0])+2) for i in range (len(matrix)+2)]
+    
     for i in range (len(matrix)):
-        row = []
-        for j in range(len(matrix[0])):    
-            row.append(0)
-        output.append(row)
-    #for the inside elements
-    for i in range (len(matrix)):
-        if i in [0,len(matrix)-1]: continue
-        row = matrix[i]
+        for j in range(len(matrix[0])):
+            expandedMatrix[i+1][j+1] = matrix[i][j]
+
+    for i in range (len(expandedMatrix)-1):
+        row = expandedMatrix[i]
         if True not in row:
             continue
+        
         for j in range(len(row)):
-            if j in[0,len(row)-1]: continue 
+            if row[j] != True: continue
             for a in range(-1,2):
                 for b in range (-1,2):
                     if a==0 and b == 0:
                         continue
-                    output[i+a][j+b]= output[i+a][j+b]+1
-    #for the left border elements
-    leftBorder = [x[0] for x in matrix]
-    left
-    rB = len(matrix[0])-1
-    rightBorder =[x[rB] for x in matrix]
-    print(leftBorder,rightBorder)    
+                    tempMatrix[i+a][j+b] = tempMatrix[i+a][j+b]+1
+    output = tempMatrix[1:len(tempMatrix)-1]
+    for i in output:
+        i.pop(0)
+        i.pop(-1)
     return output
-matrix = [[True, False, False],
-          [False, True, False],
-          [False, True, True],
-          [False, False, False]]
+
+matrix = [[True,False,False,True], 
+          [False,False,True,False], 
+          [True,True,False,True]]
 
 solution(matrix)
+#finished September 8, 2024
